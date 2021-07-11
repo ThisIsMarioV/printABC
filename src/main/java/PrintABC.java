@@ -3,15 +3,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PrintABC {
-    private  final Object sinObj = new Object();
-    private  volatile char whatString = 'A';
+    private final Object sinObj = new Object();
+    private volatile char whatString = 'A';
 
     public static void main(String[] args) {
         PrintABC printABC = new PrintABC();
-        ExecutorService fixedThread =Executors.newFixedThreadPool(3);
-        fixedThread.execute(()-> printABC.printA());
-        fixedThread.execute(()-> printABC.printB());
-        fixedThread.execute(()-> printABC.printC());
+        ExecutorService fixedThread = Executors.newFixedThreadPool(3);
+        fixedThread.execute(() -> printABC.printA());
+        fixedThread.execute(() -> printABC.printB());
+        fixedThread.execute(() -> printABC.printC());
         fixedThread.shutdown();
 
     }
@@ -33,6 +33,7 @@ public class PrintABC {
         }
 
     }
+
     public void printB() {
         synchronized (sinObj) {
             try {
@@ -50,6 +51,7 @@ public class PrintABC {
         }
 
     }
+
     public void printC() {
         synchronized (sinObj) {
             try {
